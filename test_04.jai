@@ -1,18 +1,15 @@
 #import "Basic";
 
 
-Foo :: struct(x: $T) {
-	y : T = x;
+Bar :: struct(T: Type) {
+	value: T;
 }
 
-// Bar :: struct(x: $T) {}
-
 main :: () {
-	x := 2;
-	f : Foo(x);
-	// print("%\n", f.x);
-	// print("%\n", f.y);
-
-	// b : Bar(x);
-	// print("%\n", b.x);
+	b : Bar(int);
+	print("%\n", type_of(b));
+	print("%\n", <<type_info(type_of(b)));
+	assert(type_of(b) == Bar(int));
+	assert(b.T == int);
+	// assert(type_of(b) == Bar);
 }

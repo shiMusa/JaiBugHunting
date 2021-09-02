@@ -1,7 +1,5 @@
 #import "Basic";
 
-printOffset := 0;
-
 println :: inline (msg: string, args: ..Any) {
 	print(msg, ..args);
 	print("\n");
@@ -27,15 +25,15 @@ Node :: struct(T: Type) {
 	id: int;
 }
 
-leaf :: (data: $T) -> Node {
+leaf :: (data: $T) -> Node(T) {
 	res : Node(T);
 	res.data = data;
 	res.id = next_id();
 	return res;
 }
 
-branch :: (left: *Node, right: *Node) -> Node {
-	res : Node;
+branch :: (left: *Node, right: *Node) -> Node(bool) {
+	res : Node(bool);
 	res.left = left;
 	res.right = right;
 	res.id = next_id();
