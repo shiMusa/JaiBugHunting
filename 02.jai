@@ -4,19 +4,25 @@ Foo :: struct (T: Type) {
     data: T;
 }
 
-#insert #run specialize("_add", "add", 
-    .[
-        .["Foo(float64)", "Foo(float64)"],
-        .["Foo(int)", "Foo(float64)"],
-        .["Foo(float64)", "Foo(int)"],
-        .["Foo(int)", "Foo(int)"],
-    ], .[
-        .["Foo(float64)"],
-        .["Foo(float64)"],
-        .["Foo(float64)"],
-        .["Foo(int)"],
-    ]
-);
+
+// #insert #run () -> string {return "init :: () {}";}();
+
+#insert #run specialize("_init", "init", .[.[]], .[.["int"]]);
+_init :: (ret: *int) {}
+
+// #insert #run specialize("_add", "add", 
+//     .[
+//         .["Foo(float64)", "Foo(float64)"],
+//         .["Foo(int)", "Foo(float64)"],
+//         .["Foo(float64)", "Foo(int)"],
+//         .["Foo(int)", "Foo(int)"],
+//     ], .[
+//         .["Foo(float64)"],
+//         .["Foo(float64)"],
+//         .["Foo(float64)"],
+//         .["Foo(int)"],
+//     ]
+// );
 #insert #run specialize("_add", "operator +", 
     .[
         .["Foo(float64)", "Foo(float64)"],
@@ -36,6 +42,8 @@ _add :: (a: Foo($A), b: Foo($B), res: *Foo($C)) {
 
 
 main :: () {
+    init();
+
     a : Foo(float64);
     a.data = 3.141;
     b : Foo(int);

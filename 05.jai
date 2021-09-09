@@ -7,6 +7,6 @@ Foo :: struct(x: $T) {
 
 
 main :: () {
-	x := 2;
+	x :: 2;
 	f : Foo(x); // leads to unknown(88E77034) : BaseThreadInitThunk
 }
