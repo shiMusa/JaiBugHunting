@@ -1,6 +1,5 @@
 #import "Basic";
 
-<<<<<<< HEAD
 iter :: (arr: *[$N]$T, code: Code) #expand {
     for i: 0..N-1 {
         `it := *(<<arr)[i];
