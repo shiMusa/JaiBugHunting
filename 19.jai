@@ -1,68 +1,24 @@
 #import "Basic";
 
 
-MATRIX_FLAGS :: enum_flags u32 {
-    VIEW  :: 0;
-    DENSE :: (1 << 0);
-    HEAP  :: (1 << 1);
-    BAND  :: (1 << 2);
-    TRIANGULAR :: (1 << 3);
-}
-
-ArrayType2D :: struct(data_type: Type){};
-
 MatrixType :: struct(
-    _data_type: Type,
-    flags: MATRIX_FLAGS
-){
-    using _a2d: ArrayType2D(_data_type);
-}
+    data_type: Type
+){}
 
 BandMatrix :: struct(_T: Type, N: int, M: int, P: int, Q: int) {
-    using _m: MatrixType(_T, MATRIX_FLAGS.DENSE | MATRIX_FLAGS.BAND); 
+    using _m: MatrixType(_T); 
     ROWS : int : P+Q+1; // ? the BandMatrix is of size ROWS × M
     data: [ROWS*M]_T;
-}
-
-rows :: inline (m: BandMatrix($T, $N, $M, $P, $Q)) -> int {
-    return N;
-}
-cols :: inline (m: BandMatrix($T, $N, $M, $P, $Q)) -> int {
-    return M;
-}
-
-n_raw :: inline (m: BandMatrix($T, $N, $M, $P, $Q)) -> int {
-    return m.ROWS * M; // ! this is not the correct number!
 }
 
 get_raw :: inline (m: BandMatrix($T, $N, $M, $P, $Q), i: int) -> T {
     return m.data[i];
 }
 
-to_lin_index :: inline (m: $M/MatrixType, i: int, j: int) -> int {
-    return i * cols(m) + j;
-}
-to_lin_index :: inline (m: *$M/MatrixType, i: int, j: int) -> int {
-    return inline to_lin_index(<<m, i, j);
-}
-
 from_raw_index :: inline (m: BandMatrix($T, $N, $M, $P, $Q), i: int) -> int {
-    r_int := i / M;
-    c_int := i % M;
-    r := r_int + c_int - Q;
-    c := c_int;
-    return to_lin_index(m, r, c);
+    return 42;
 }
 
-from_raw_index :: inline (m: *$M/MatrixType, i: int) -> int {
-    return from_raw_index(<<m, i);
-}
-
-raw :: inline (m: *$M/MatrixType) -> *MatrixRawForExpansion(M) {
-    res : MatrixRawForExpansion(M) = ---;
-    res.matrix = m;
-    return *res;
-}
 raw :: inline (m: $M/MatrixType) -> *MatrixRawForExpansion(M) {
     res : MatrixRawForExpansion(M) = ---;
     res.matrix = *m;
