@@ -34,7 +34,7 @@ for_expansion :: (me: *MatrixRawForExpansion($M), body: Code, flags: For_Flags) 
     i := 0;
     while i < 3 {
         `it_index := i;
-        `it := get_raw(m, i);
+        `it := get_raw(m, i);  // unknown(73F854E0) : BaseThreadInitThunk
         // `it := i; // this works
         i += 1;
     }
