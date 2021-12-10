@@ -3,7 +3,7 @@
 
 
 foo :: () -> []float {
-    res : [2]float;
+    res := NewArray(2, float, false);
     res[0] = 42.0;
     res[1] = 3.141;
     return res;
