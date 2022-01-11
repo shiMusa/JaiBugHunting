@@ -4,12 +4,12 @@ A :: struct(T: Type) {
     val: T;
 }
 
-special :: ($T: Type) -> T {
+foo :: ($T: Type) -> T {
     res : T;
     res.val = 13;
     return res;
 }
 
 main :: () {
-    x :: #run special(A(u8));
+    x :: #run foo(A(u8));
 }
