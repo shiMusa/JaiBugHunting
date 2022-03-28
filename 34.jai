@@ -43,4 +43,8 @@ main :: () {
     b.z = 2;
 
     bar(*b);
+
+    // prints
+    // f = {{0}, {2}, 200}     // or similarly wrong
+    // f = {{42}, {3.141}, 2}  // this is correct
 }
